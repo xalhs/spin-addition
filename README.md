@@ -1,8 +1,10 @@
 # spin-addition
 algorithm that can add arbitrary spins with the rules of quantum mechanics (in progress)
 
+## Already Done/ What works
+1. Lowering operator, basically give it a state with a set total spin and a set spin projection and it outputs a state with the same total spin and a spin projection of "1" lower
 
-# To Do (more or less in order of importance)
+## To Do (more or less in order of importance)
 1. function that finds a state orthogonal to given states  (requires an efficient way to find the determinant of a matrix)
 2. function that normalizes the coefficients of a state
 3. function that gives the dot inner product of two states
