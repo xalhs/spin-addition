@@ -80,12 +80,12 @@ def Lowering(small_spins , State):
     print(new_state)
     return new_state
 
-def equiv(Object , Object):
+def equiv(Object , Object2):
     pass
 
 
-nam = Lowering( Total ,   Total['Objects'][0]['states'][0])
-nam2 = Lowering( Total ,   nam)
-nam3 = Lowering( Total ,   nam2)
+nam = Lowering( Total['small_spins'] ,   Total['Objects'][0]['states'][0])
+nam2 = Lowering( Total['small_spins'] ,   nam)
+nam3 = Lowering( Total['small_spins'] ,   nam2)
             #    new_base.append()
         #for spin in base:
