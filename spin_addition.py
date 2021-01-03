@@ -1,4 +1,3 @@
-#import math
 import sympy
 from sympy import sqrt
 from sympy import*
@@ -10,7 +9,8 @@ from sympy import*
 
 class Base:
     def __init__(self, coefficient, base ,ind_spins):
-        self.base = base
+        rat_base = [Rational(x) for x in base]
+        self.base = rat_base
         self.coefficient = coefficient
         self.ind_spins = ind_spins
 
@@ -37,6 +37,17 @@ class State:
         print(self.bases[0].base)
         return sum(self.bases[0].base)
 
+    def get_total_spin(self):
+
+        new_state = Lowering(Raising(self))
+
+        if new_state == None:
+            new_state = State(None , self.ind_spins)
+        for base in self.bases:
+            new_state.add_dimension(Rational(self.spin*(self.spin +1)) , base.base  )
+
+        prod =  InnerProduct(self , new_state)
+        return ( (-1 + sqrt(1 + 4* prod))/2  )
 
     def add_dimension(self, new_coef, new_base):
         try:
@@ -83,22 +94,50 @@ class State:
 
 class Object:
 
-    def __init__(self, states , spin):
+    def __init__(self, states):
 
         self.states = {s.spin: s for s in states}
-        self.spin = spin
+        self.spin = states[0].get_total_spin()
+        #self.spin = spin
 
     def fill(self):
         try:
             new_state = self.states[self.spin]
             while new_state != None:
-                new_state = Lowering(new_state)        
+                new_state = Lowering(new_state)
                 if new_state != None:
                     new_state.normalize()
                     self.states[new_state.spin] = new_state
         except:
             print("Couldn't get state with highest spin")
 
+def Raising(state):
+    if state == None:
+        return
+    new_state = State( None , state.ind_spins )
+    for base in state.bases:
+        for index  in range(len(base.base)):
+            new_base = []
+            j = state.ind_spins[index]
+            for second_index , spin in enumerate(base.base):
+                if second_index == index:
+                    if spin == (state.ind_spins[index]):
+                        new_base = []
+                        new_coeff = 0
+                        break
+                    else:
+                        new_base.append(spin + 1)
+                        new_coeff = base.coefficient*sqrt(Rational(j*(j+1)-spin*(spin+1)))
+                else:
+                    new_base.append(spin)
+
+            new_state.add_dimension( new_coeff, new_base)
+
+    if new_state.bases == []:
+        return
+
+    #new_state.normalize()
+    return new_state
 
 def Lowering(state):
     if state == None:
@@ -144,6 +183,6 @@ def InnerProduct(state1 , state2):
 
 states = [State([Base(1 ,[1, 1/2] , [1, 1/2] )] ) ,State([Base(1 ,[-1, -1/2] , [1, 1/2] )] ) ]
 
-obj = Object(states , 1.5)
+obj = Object(states)
 
 nam = State([Base(1 ,[1, 1/2] , [1, 1/2])])
