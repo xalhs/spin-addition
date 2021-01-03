@@ -29,6 +29,7 @@ class State:
         if bases != None:
             self.spin = self.get_spin_proj()
             self.ind_spins = bases[0].ind_spins
+            self.normalize()
         else:
             self.bases = []
 
@@ -60,6 +61,18 @@ class State:
         self.spin = self.get_spin_proj()
 
 
+    def normalize(self):
+        global_coef = 0
+        for base in self.bases:
+            coef = base.coefficient
+            print(coef)
+            global_coef += coef*coef
+            print(global_coef)
+
+        for base in self.bases:
+            base.coefficient *= sqrt(global_coef)/global_coef
+
+
     def __repr__(self):
         s1 = 'Spin {}\n'.format(self.spin)
         s2 =  str([ (' Coefficient: ' + repr(base.coefficient) + ' Bases: ' + repr(base.base)) for base in self.bases]) + "\n\n"
@@ -70,7 +83,7 @@ class State:
 
 class Object:
 
-    def __init__(self, states , spin ):
+    def __init__(self, states , spin):
 
         self.states = {s.spin: s for s in states}
         self.spin = spin
@@ -79,11 +92,13 @@ class Object:
         try:
             new_state = self.states[self.spin]
             while new_state != None:
-                new_state = Lowering(new_state)
+                new_state = Lowering(new_state)        
                 if new_state != None:
+                    new_state.normalize()
                     self.states[new_state.spin] = new_state
         except:
             print("Couldn't get state with highest spin")
+
 
 def Lowering(state):
     if state == None:
