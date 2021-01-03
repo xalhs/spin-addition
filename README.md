@@ -3,17 +3,15 @@ algorithm that can add arbitrary spins with the rules of quantum mechanics (in p
 
 ## Already Done/ What works
 1. Lowering operator, basically give it a state with a set total spin and a set spin projection and it outputs a state with the same total spin and a spin projection of "1" lower
+2. function that normalizes the coefficients of a state (.normalize() class function), give it a state and it returns the same state only that the norm squares of its coefficients sum to 1
+3. function that gives the dot inner product of two states, does what it says you give it two states and it returns their inner product
+4. function that gives the total spin of a state (get_total_spin() class function), give it a state and it produces the total spin of that state (not the "z" projection)
+5. function that gives the z axis spin projection of a state (get_spin_proj() class function, gives as output the z projection of a state
 
 ## To Do (more or less in order of importance)
 1. function that finds a state orthogonal to given states  (requires an efficient way to find the determinant of a matrix)
-2. function that normalizes the coefficients of a state
-3. function that gives the dot inner product of two states
-4. function that gives the total spin of a state
-5. function that gives the z axis spin projection of a state
-6. Make a way to add an Object to another Object (Objects can be spins or other objects with a well defined total spin that may be composed of smaller spins)
-7. Make a way to add an Object to a Total (a Total as I have it defined now is a collection of Objects)
-
-
+2. Make a way to add an Object to another Object (Objects can be spins or other objects with a well defined total spin that may be composed of smaller spins)
+3. Make a way to add an Object to a Total (a Total as I have it defined now is a collection of Objects)
 
 ## Theory
 In Quantum Mechanics courses you learn that all particles have an intristic property called spin.  
