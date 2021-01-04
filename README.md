@@ -9,13 +9,15 @@ algorithm that can add arbitrary spins with the rules of quantum mechanics (in p
 5. function that gives the z axis spin projection of a state (get_spin_proj() class function, gives as output the z projection of a state
 6. function that finds a state orthogonal to given states, give it a list of states with the same spin projection as input and it returns a state orthogonal to them if it's unique
 7. function that adds two spins, given two spins (e.g. 3/2 , 1/2) this function returns all states with a well defined total spin and spin projection
+8. function to add spin to Object, produces all states that occur after adding an arbitrary spin to an already defined Object
+9. function that adds an arbitrary amount of arbitrary spins, produces all states from the addition of these spins (e.g all states from adding spins [1/2 , 5/2 , 2])
 
 ## To Do (more or less in order of importance)
-1. Make a way to add an Object to another Object (Objects can be spins or other objects with a well defined total spin that may be composed of smaller spins)
-2. Make a way to add an Object to a Total (a Total as I have it defined now is a collection of Objects)
+1. Make it more presentable and easy to use
 
 ## Goal
-The final goal of this algorithm is to take as inputs an arbitrary amount of spins and produce all the states resulting from the addition of those spins
+~~The final goal of this algorithm is to take as inputs an arbitrary amount of spins and produce all the states resulting from the addition of those spins~~  
+Achieved!!!
 
 ## Theory
 In Quantum Mechanics courses you learn that all particles have an intristic property called spin.  
