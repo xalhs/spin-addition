@@ -235,7 +235,7 @@ def two_spin_adder(ind_spin1 , ind_spin2):
     ind_spin1 = Rational(ind_spin1)
     ind_spin2 = Rational(ind_spin2)
     Total = {'ind_spins': [ind_spin1 , ind_spin2] , 'Objects': []}
-    for i in range(floor(ind_spin1 + ind_spin2) + 1):
+    for i in range(2*min(ind_spin1 , ind_spin2) + 1):
         orth_states = []
         for j in range(i):
 
