@@ -13,6 +13,9 @@ algorithm that can add arbitrary spins with the rules of quantum mechanics (in p
 2. Make a way to add an Object to another Object (Objects can be spins or other objects with a well defined total spin that may be composed of smaller spins)
 3. Make a way to add an Object to a Total (a Total as I have it defined now is a collection of Objects)
 
+## Goal
+The final goal of this algorithm is to take as inputs an arbitrary amount of spins and produce all the states resulting from the addition of those spins
+
 ## Theory
 In Quantum Mechanics courses you learn that all particles have an intristic property called spin.  
 The rules of adding those spins are not as trivial as simple addition and so require the use of some techniques that I plan to implement into the algorithm in order to be able to add two or more arbitrary spins.  
