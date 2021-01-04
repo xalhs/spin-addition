@@ -116,6 +116,7 @@ class Object:
 
         self.states = {s.spin: s for s in states}
         self.spin = states[0].get_total_spin()
+        self.ind_spins = states[0].ind_spins
         #self.spin = spin
 
     def __getitem__(self, key):
@@ -131,6 +132,7 @@ class Object:
                     self.states[new_state.spin] = new_state
         except:
             print("Couldn't get state with highest spin")
+
 
 def Raising(state):
     if state == None:
@@ -206,9 +208,9 @@ def Orthogonal(States):
     temp_state = State([Base(1 , States[0].ind_spins , States[0].ind_spins)] )
     for l in range(sum(States[0].ind_spins) - spin):
         temp_state = Lowering(temp_state)
-
     all_bases = [x.base for x in temp_state.bases]
     if len(all_bases) != len(States) + 1:
+        print("ERROR: can't orthogonalize states since the number of bases is not equal to the number of states +1")
         return
     for i, base in enumerate(all_bases):      #States[0]['bases']):
         A[0][i] = base
@@ -216,7 +218,6 @@ def Orthogonal(States):
             for state_base in state.bases:
                 if state_base.base == base:
                     A[j+1][i] = state_base.coefficient
-
     for i , base in enumerate(all_bases):    ##########################
         B=[]
         for j in range(1, len(A)):
@@ -228,14 +229,13 @@ def Orthogonal(States):
 
                     B[j-1].append(A[j][k])
         new_state.add_dimension( ((-1)**i) * Matrix(B).det(), base)
-
     return new_state
 
 def two_spin_adder(ind_spin1 , ind_spin2):
     ind_spin1 = Rational(ind_spin1)
     ind_spin2 = Rational(ind_spin2)
     Total = {'ind_spins': [ind_spin1 , ind_spin2] , 'Objects': []}
-    for i in range(floor(ind_spin1 + ind_spin2) + 1):
+    for i in range( 2*min(ind_spin1 , ind_spin2) + 1):
         orth_states = []
         for j in range(i):
 
@@ -258,15 +258,53 @@ def InnerProduct(state1 , state2):
 
     return prod
 
+def add_spin_to_object(object , ind_spin1):
+    final_ind_spins = [x for x in object.ind_spins]
+    final_ind_spins.append(ind_spin1)
+    final = {'ind_spins': final_ind_spins , 'Objects': []}
+    tot = two_spin_adder(object.spin , ind_spin1)
+    for obj in tot['Objects']:
+        states = []
+        for spin in obj.states:
+            new_state = State( None , final['ind_spins'] )
+            for virt_base in obj.states[spin].bases:
+                new_base = []
+                new_coeff = 0
+                for base in object[virt_base.base[0]].bases:
+                    new_base = [y for y in base.base]
+                    new_base.append(virt_base.base[1])
+                    new_coeff = base.coefficient*virt_base.coefficient
+                    new_state.add_dimension(new_coeff , new_base)
+            states.append(new_state)
+        #return states
+        new_obj = Object(states)
+        final['Objects'].append(new_obj)
 
+    return final
 
-states = [State([Base(1 ,[1, 1/2] , [1, 1/2] )] ) ,State([Base(1 ,[-1, -1/2] , [1, 1/2] )] ) ]
+def add_spin_to_total(total , ind_spin1):
+    final_ind_spins = [x for x in total['ind_spins']]
+    final_ind_spins.append(ind_spin1)
+    final = {'ind_spins': final_ind_spins , 'Objects': []}
+    for obj in total['Objects']:
+        temp = add_spin_to_object(obj , ind_spin1)
+        for obj1 in temp['Objects']:
+            final['Objects'].append(obj1)
 
-obj = Object(states)
+    return final
 
-nam = State([Base(1 ,[1, 1/2] , [1, 1/2])])
+def produce_all_states(spins):
+    for i , spin in enumerate(spins):
+        if i == 0:
+            continue
+        elif i == 1:
+            final = two_spin_adder(spins[0] , spins[1])
+        else:
+            final = add_spin_to_total(final , spin)
 
-tot =  two_spin_adder(3/2 , 3/2)
+    return final
+
+tot = produce_all_states([1/2 , 1/2 , 1/2])
 
 for object1 in tot['Objects']:
     print(object1.states)
