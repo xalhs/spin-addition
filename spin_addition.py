@@ -6,7 +6,6 @@ from sympy import*
 # and also contain the big objects (irreducible representations)
 # each big object contains states
 
-
 class Base:
     def __init__(self, coefficient, base ,ind_spins):
         if coefficient == 0:
@@ -20,15 +19,6 @@ class Base:
     def add_base(self, coefficient, base):
         self.base.append(base)
         self.coefficient.append(coefficient)
-
-
-#obj.states[Rational(3/2)]
-
-#obj[1/2]
-#obj[3/2]
-
-#obj.states[1/2].bases[]
-#obj.states[3/2]
 
 class State:
 
@@ -235,11 +225,7 @@ def two_spin_adder(ind_spin1 , ind_spin2):
     ind_spin1 = Rational(ind_spin1)
     ind_spin2 = Rational(ind_spin2)
     Total = {'ind_spins': [ind_spin1 , ind_spin2] , 'Objects': []}
-<<<<<<< HEAD
     for i in range( 2*min(ind_spin1 , ind_spin2) + 1):
-=======
-    for i in range(2*min(ind_spin1 , ind_spin2) + 1):
->>>>>>> df58f4cc7b1e17d16c2426bb98195c385a940d1e
         orth_states = []
         for j in range(i):
 
@@ -280,7 +266,6 @@ def add_spin_to_object(object , ind_spin1):
                     new_coeff = base.coefficient*virt_base.coefficient
                     new_state.add_dimension(new_coeff , new_base)
             states.append(new_state)
-        #return states
         new_obj = Object(states)
         final['Objects'].append(new_obj)
 
