@@ -1,28 +1,22 @@
 # spin-addition
-algorithm that can add arbitrary spins with the rules of quantum mechanics (in progress)
+An algorithm that can add an arbitrary amount of  spins with the rules of quantum mechanics and produce all the states with a well defined Total spin and z-component of spin.
 
 ## Quick Start
 1. pip install sympy
 2. change in line 296 ```tot = produce_all_states([1/2 , 1/2 , 1/2])``` the three spins to whatever number of whichever spins you want to add 
 3. and then just run the algorithm, it should print all possible states that are eigenvalues to total spin operator while also being eigenvalues to the total z-component spin operator
 
-## Already Done/ What works
-1. Lowering operator, basically give it a state with a set total spin and a set spin projection and it outputs a state with the same total spin and a spin projection of "1" lower
-2. function that normalizes the coefficients of a state (.normalize() class function), give it a state and it returns the same state only that the norm squares of its coefficients sum to 1
-3. function that gives the dot inner product of two states, does what it says you give it two states and it returns their inner product
-4. function that gives the total spin of a state (get_total_spin() class function), give it a state and it produces the total spin of that state (not the "z" projection)
-5. function that gives the z axis spin projection of a state (get_spin_proj() class function, gives as output the z projection of a state
-6. function that finds a state orthogonal to given states, give it a list of states with the same spin projection as input and it returns a state orthogonal to them if it's unique
-7. function that adds two spins, given two spins (e.g. 3/2 , 1/2) this function returns all states with a well defined total spin and spin projection
-8. function to add spin to Object, produces all states that occur after adding an arbitrary spin to an already defined Object
-9. function that adds an arbitrary amount of arbitrary spins, produces all states from the addition of these spins (e.g all states from adding spins [1/2 , 5/2 , 2])
-
-## To Do (more or less in order of importance)
-1. Make it more presentable and easy to use
-
-## Goal
-~~The final goal of this algorithm is to take as inputs an arbitrary amount of spins and produce all the states resulting from the addition of those spins~~  
-Achieved!!!
+## To Do
+- [x] Lowering operator, basically give it a state with a set total spin and a set spin projection and it outputs a state with the same total spin and a spin projection of "1" lower
+- [x] function that normalizes the coefficients of a state (.normalize() class function), give it a state and it returns the same state only that the norm squares of its coefficients sum to 1
+- [x] function that gives the dot inner product of two states, does what it says you give it two states and it returns their inner product
+- [x] function that gives the total spin of a state (get_total_spin() class function), give it a state and it produces the total spin of that state (not the "z" projection)
+- [x] function that gives the z axis spin projection of a state (get_spin_proj() class function, gives as output the z projection of a state
+- [x] function that finds a state orthogonal to given states, give it a list of states with the same spin projection as input and it returns a state orthogonal to them if it's unique
+- [x] function that adds two spins, given two spins (e.g. 3/2 , 1/2) this function returns all states with a well defined total spin and spin projection
+- [x] function to add spin to Object, produces all states that occur after adding an arbitrary spin to an already defined Object
+- [x] function that adds an arbitrary amount of arbitrary spins, produces all states from the addition of these spins (e.g all states from adding spins [1/2 , 5/2 , 2])
+- [ ] Make it more presentable and easy to use
 
 ## Theory
 In Quantum Mechanics courses you learn that all particles have an intristic property called spin.  
