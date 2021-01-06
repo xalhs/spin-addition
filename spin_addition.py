@@ -93,11 +93,12 @@ class State:
 
 
     def __repr__(self):
-        s1 = 'Spin {}\n'.format(self.spin)
+        s0 = 'Total Spin {},\t'.format(self.get_total_spin())
+        s1 = 'z-component of spin {}\n'.format(self.spin)
         s2 =  str([ (' Coefficient: ' + repr(base.coefficient) + ' Bases: ' + repr(base.base)) for base in self.bases]) + "\n\n"
         #s3 = '\n Bases:' + repr(self.bases)
 
-        return s1 + s2 #+ s3
+        return s0 + s1 + s2 #+ s3
 
 
 class Object:
@@ -293,7 +294,7 @@ def produce_all_states(spins):
 
     return final
 
-tot = produce_all_states([1/2 , 1/2 , 1/2])
+tot = produce_all_states([1/2 , 1/2, 1/2 ])
 
 for object1 in tot['Objects']:
     print(object1.states)
